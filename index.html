@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USATT Ratings Dashboard</title>
+    <meta name="description" content="View the updated USATT ratings and calculation details for all tournament players.">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="top-nav glass-panel">
+        <div class="nav-content">
+            <div class="logo-container-small">
+                <div class="logo-icon-small"></div>
+                <h2>USATT Rating Calculator</h2>
+            </div>
+            <div class="nav-links">
+                <button id="navCalcBtn" class="nav-btn active">Manual Calculator</button>
+                <button id="navTournamentsBtn" class="nav-btn">Tournament Results</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <main class="container" id="calculator-view">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon"></div>
+                <h1>Rating Calculator</h1>
+            </div>
+            <p class="subtitle">Manual rating adjustment tool</p>
+        </header>
+
+        <section class="calculator-container glass-panel">
+            <div class="calc-header">
+                <div class="input-group">
+                    <label for="initialRating">Your Initial Rating</label>
+                    <input type="number" id="initialRating" placeholder="e.g. 1500" value="0">
+                </div>
+                <div class="result-display">
+                    <div class="result-item hidden" id="adjustedRatingContainer">
+                        <span class="result-label">Adjusted Rating</span>
+                        <span id="adjustedRatingResult" class="result-value" style="color: var(--accent-purple)">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Final Rating</span>
+                        <span id="finalRatingResult" class="result-value">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Net Change</span>
+                        <span id="netChangeResult" class="result-value change-neutral">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="matches-section">
+                <div class="section-header">
+                    <h2>Matches</h2>
+                </div>
+
+                <div class="match-entry-bar">
+                    <div class="entry-group">
+                        <label>Result</label>
+                        <div class="toggle-group" id="resultToggle">
+                            <button type="button" class="toggle-btn active" data-value="win">Win</button>
+                            <button type="button" class="toggle-btn" data-value="loss">Loss</button>
+                        </div>
+                    </div>
+                    <div class="entry-group">
+                        <label for="newMatchRating">Opponent Rating</label>
+                        <input type="number" id="newMatchRating" placeholder="e.g. 1500" value="1500">
+                    </div>
+                    <button id="addMatchBtn" class="add-btn">Add Match</button>
+                </div>
+
+                <div id="matchesList" class="matches-list">
+                    <!-- Match rows will be added here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <main class="container hidden" id="home-view">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon"></div>
+                <h1>USATT Ratings Dashboard</h1>
+            </div>
+            <p class="subtitle">Select a tournament to view rating adjustments</p>
+        </header>
+
+        <section class="tournament-grid" id="tournament-grid">
+            <!-- Cards populated by JS -->
+        </section>
+    </main>
+
+    <main class="container hidden" id="tournament-view">
+        <header>
+            <div class="logo-container" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                <button id="backBtn" class="back-btn">← Back to Tournaments</button>
+                <h1 id="tournamentTitle">Tournament Name</h1>
+            </div>
+        </header>
+
+        <section class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search players...">
+            </div>
+        </section>
+
+        <section class="table-container glass-panel">
+            <table id="ratingsTable">
+                <thead>
+                    <tr>
+                        <th data-sort="name">Player Name <span class="sort-icon"></span></th>
+                        <th data-sort="initial" class="num-col">Initial Rating <span class="sort-icon"></span></th>
+                        <th data-sort="adjusted" class="num-col">Adjusted Rating <span class="sort-icon"></span></th>
+                        <th data-sort="final" class="num-col">Final Rating <span class="sort-icon"></span></th>
+                        <th data-sort="change" class="num-col">Rating Change <span class="sort-icon"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data populated by JS -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div class="modal hidden" id="playerModal">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 id="modalPlayerName">Player Name</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="stats-summary" id="statsSummary">
+                    <!-- Stats populated by JS -->
+                </div>
+                <h3>Match History</h3>
+                <div class="match-list" id="matchList">
+                    <!-- Matches populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

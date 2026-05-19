@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+._*
+.DS_Store
+updates_log.json
+# Exclude the large data files if they aren't needed on GitHub, 
+# but the user said data.js IS the bridge.
+# Tournament folders might be large, but they contain CSVs.
